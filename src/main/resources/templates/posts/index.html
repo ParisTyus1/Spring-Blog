@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<header th:replace="partials :: head">
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+    <title>All Posts</title>
+</header>
 <body>
+<nav th:replace="partials :: navbar"></nav>
 
+<div th:each="post : ${posts}">
+    <h1 th:text = "${post.title}"></h1>
+    <p th:text = "${post.body}"></p>
+</div>
+
+
+<footer th:replace="partials :: footer"></footer>
 </body>
 </html>

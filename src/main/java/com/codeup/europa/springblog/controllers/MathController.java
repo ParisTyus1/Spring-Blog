@@ -8,28 +8,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MathController {
 
-    @RequestMapping(path = "/add/{a}/and/{b}")
+    @RequestMapping("/add/{a}/and/{b}")
     @ResponseBody
-    public String add(@PathVariable int a, int b) {
-        return "" + (a+b);
+    public String add(@PathVariable int a,@PathVariable int b) {
+        return "" + (a + b);
     }
 
-    @RequestMapping(path = "/subtract/{a}/and/{b}")
+    @RequestMapping("/subtract/{a}/from/{b}")
     @ResponseBody
-    public String subtract(@PathVariable int a, int b) {
-        return "" + (b-a);
+    public String subtract(@PathVariable int a,@PathVariable int b) {
+        return "" + (b - a);
     }
 
-    @RequestMapping(path = "/multiply/{a}/and/{b}")
+    @RequestMapping("/multiply/{a}/and/{b}")
     @ResponseBody
-    public String multiply(@PathVariable int a, int b) {
-        return "" + (a*b);
+    public String multiply(@PathVariable int a,@PathVariable int b) {
+        return "" + (a * b);
     }
 
-    @RequestMapping(path = "/add/{a}/and/{b}")
+    @RequestMapping("/divide/{a}/by/{b}")
     @ResponseBody
-    public double divde(@PathVariable double a, double b) {
-        return (a/b);
+    public String divide(@PathVariable double a, @PathVariable double b) {
+        return "" + (a / b);
     }
 
 

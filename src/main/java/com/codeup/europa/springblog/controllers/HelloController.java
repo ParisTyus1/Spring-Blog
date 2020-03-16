@@ -3,6 +3,8 @@ package com.codeup.europa.springblog.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -26,16 +28,30 @@ class HelloController {
             return "hello";
         }
 
-        @GetMapping("/join")
-        public String showJoinForm() {
-            return "join";
+
+        @GetMapping("/fruit")
+        public String fruit(Model model){
+            List <String> fruitBasket = new ArrayList<>();
+            fruitBasket.add("pineapple");
+            fruitBasket.add("lemon");
+            fruitBasket.add("apple");
+            fruitBasket.add("starfruit");
+            fruitBasket.add("papaya");
+            fruitBasket.add("cherry");
+            fruitBasket.add("apricot");
+            fruitBasket.add("grapes");
+            fruitBasket.add("starfruit");
+            fruitBasket.add("papaya");
+            fruitBasket.add("japanese pear");
+            fruitBasket.add("pineapple");
+            fruitBasket.add("lemon");
+            fruitBasket.add("durian");
+
+            model.addAttribute("fruitBasket", fruitBasket);
+
+            return "fruit";
         }
 
-        @PostMapping("/join")
-        public String joinCohort(@RequestParam(name = "cohort") String cohort, Model model) {
-            model.addAttribute("cohort", "Welcome to " + cohort + "!");
-            return "join";
-        }
     }
 
 
