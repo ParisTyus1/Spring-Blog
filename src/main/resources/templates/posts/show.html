@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="">
+<head>
     <meta charset="UTF-8">
     <title>Viewing Post</title>
 </head>
 <body>
-<h1 th:text="${title}"></h1>
-<p th:text="${body}"></p>
+
+<div th:each="posts : ${postsList}">
+    <h1 th:text="${posts.title}"></h1>
+    <p th:text="${posts.body}"></p>
+    <button class="delete-button" th:id="'delete-button-'+${posts.id}"></button>
+
+</div>
+
+
+<script>
+    let deleteButtonClass = document.querySelectorAll(".delete-button");
+    deleteButtonClass.forEach(button => {
+        button.addEventListener("click", function() {
+            let idSplit = this.getAttribute("id").split("-");
+            let postId = idSplit[2];
+            fetch('http://localhost:8080/posts/delete?id=' + postId, {
+                method: 'DELETE',
+            })
+                .then(res => {
+                    location.reload(true);
+                })
+        })
+    })
+    //event listener with class of delete button//
+    //listener function will grab Id of whatever was clicked//
+    //use Fetch api to send delete request to the controller//
+    //for redirect(controller)
+</script>
+
 </body>
 </html>
