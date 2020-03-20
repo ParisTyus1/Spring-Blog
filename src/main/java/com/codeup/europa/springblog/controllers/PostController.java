@@ -37,13 +37,8 @@ public class PostController {
         return "posts/show";
     }
 
-    @GetMapping("/posts/create")
-    public String getCreatePostForm(){
-        return "posts/create";
-    }
-
     @GetMapping("/make/user")
-    public String blogUser(){
+    public String blogUser(@RequestParam long id){
         User newUser = new User();
         newUser.setUsername("Soup Cooler");
         newUser.setEmail("Velvetvoice@something.com");
@@ -52,15 +47,23 @@ public class PostController {
         return "posts/show";
     }
 
+
+    @GetMapping("/posts/create")
+    public String getCreatePostForm(Model model){
+        model.addAttribute("post,", new Post());
+        return "posts/create";
+    }
+
+
     @PostMapping("/posts/create")
-    public String createPost(@RequestParam long id,@RequestParam String title, @RequestParam String body){
+    public String createPost(@ModelAttribute Post post){
         Post postCreate =  new Post();
         User user = userDoa.findUserById(id);
-        postCreate.setTitle(title);
-        postCreate.setBody(body);
+        postCreate.setTitle(post.getTitle());
+        postCreate.setBody(post.getBody());
         postCreate.setUser(user);
         postDao.save(postCreate);
-        return "redirect:create";
+        return "redirect:show";
 
     }
 
@@ -75,16 +78,17 @@ public class PostController {
         return "Saving Post";
     }
 
-    @GetMapping("/posts/update")
-    public String updatePostForm() {
+    @GetMapping("/posts/{id}/update")
+    public String updatePostForm(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/update";
     }
 
-    @PostMapping("/posts/update")
-    public String updatePost(@RequestParam long id, @RequestParam String title,@RequestParam String body) {
+    @PostMapping("/posts/{id}/update")
+    public String updatePost(@ModelAttribute Post post, @PathVariable long id) {
         Post postUpdate = postDao.getOne(id);
-        postUpdate.setTitle(title);
-        postUpdate.setBody(body);
+        postUpdate.setTitle(post.getTitle());
+        postUpdate.setBody(post.getBody());
         postDao.save(postUpdate);
         return "posts/show";
     }
