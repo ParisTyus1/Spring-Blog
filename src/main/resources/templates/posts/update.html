@@ -5,18 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-<form action="@{/posts/update}" method="post">
+<form th:action="@{|/posts/${post.id}/update|}" th:method="POST" th:object="${post}">
     <label for="post-id">
-        <p>Id</p>
-        <input type="text" name="id" id="post-id" class="field" />
+        <h3>Id</h3>
+        <input type="number" name="id" id="post-id" class="field" />
     </label>
-    <label for="title-id">
-        <p>Title</p>
-        <input type="text" th:field="title" id="title-id" class="field" />
+    <label for="title"><h3>Title</h3>
+        <input type="text" th:field="*{title}" placeholder="Enter a title"  />
     </label>
-    <label for="body">
-        <p>Body</p>
-        <input type="text" th:field="body" id="body" class="field" />
+    <label for="body"><h3>Body</h3>
+        <input type="text" th:field="*{body}" placeholder="Enter a body" />
     </label>
     <button type="submit">submit!</button>
 </form>
