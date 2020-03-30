@@ -28,6 +28,8 @@ public class PostController {
 
 
 
+
+
     @GetMapping("/posts")
     public String getAllPosts(Model model){
         model.addAttribute("posts", postDao.findAll());
@@ -60,12 +62,12 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post){
-        post.setUser(userDoa.getOne(1L));
+        post.setUser(userDoa.getOne(1l));
         postDao.save(post);
         String emailSubject = "This is an email";
         String emailbody = "This is the body of an email";
-        mailService.prepareAndSend(new Post(), emailSubject, emailbody);
-        return "posts/show";
+//        mailService.prepareAndSend(new Post(), emailSubject, emailbody);
+        return "redirect:/posts";
 
     }
 //    @GetMapping("/make/user")
@@ -100,7 +102,7 @@ public class PostController {
         postUpdate.setTitle(post.getTitle());
         postUpdate.setBody(post.getBody());
         postDao.save(postUpdate);
-        return "posts/show";
+        return "redirect:/posts/index";
     }
 
     @DeleteMapping("/posts/{id}/delete")
@@ -108,6 +110,6 @@ public class PostController {
        User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
        if (loggedinUser.getId() == postDao.getOne(id).getUser().getId())
            postDao.deleteById(id);
-        return "posts/show";
+        return "redirect:/posts/index";
     }
 }
